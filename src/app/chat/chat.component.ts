@@ -17,7 +17,20 @@ export class ChatComponent implements OnInit {
     http.get(url).subscribe((res:Response) => {
       const token = res.json().token;
       window.Twilio.Chat.Client.create(token).then(client => {
-        console.log('bk client', client);
+        client.getSubscribedChannels().then(channels => {
+          console.log('bk channels', channels);
+          client.getChannelByUniqueName('general').then(generalChannel => {
+            console.log('bk generalChannel', generalChannel);
+            generalChannel.join().then(joined => {
+              console.log('joined!', joined);
+            }).catch(err => {
+              console.warn('didn\'t join because', err);
+            });
+            generalChannel.on('messageAdded', message => {
+              console.log('bk message', message.body);
+            });
+          });
+        });
       });
     });
   }
