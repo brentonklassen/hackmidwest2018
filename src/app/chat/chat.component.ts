@@ -12,15 +12,19 @@ declare global {
 })
 export class ChatComponent implements OnInit {
 
+  channel;
+
   constructor(private http: Http) {
+
+    const _this = this;
+
     const url = 'http://localhost:3000/token/brenton?device=browser'
     http.get(url).subscribe((res:Response) => {
       const token = res.json().token;
       window.Twilio.Chat.Client.create(token).then(client => {
         client.getSubscribedChannels().then(channels => {
-          console.log('bk channels', channels);
           client.getChannelByUniqueName('general').then(generalChannel => {
-            console.log('bk generalChannel', generalChannel);
+            _this.channel = generalChannel;
             generalChannel.join().then(joined => {
               console.log('joined!', joined);
             }).catch(err => {
@@ -33,6 +37,11 @@ export class ChatComponent implements OnInit {
         });
       });
     });
+  }
+
+  sendMessage(message :string) {
+    const _this = this;
+    _this.channel.sendMessage(message);
   }
 
   ngOnInit() {
