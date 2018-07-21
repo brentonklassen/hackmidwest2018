@@ -1,4 +1,4 @@
-<p>
-  chat works!
-</p>
-<input #composer (keyup.enter)="sendMessage(composer.value)">
+<ul>
+  <li *ngFor="let message of messageList">{{message}}</li>
+</ul>
+<input #composer (keyup.enter)="sendMessage(composer.value)" placeholder="Type a message and hit enter..." size="100">

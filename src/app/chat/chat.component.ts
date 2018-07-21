@@ -13,6 +13,7 @@ declare global {
 export class ChatComponent implements OnInit {
 
   channel;
+  messageList = [];
 
   constructor(private http: Http) {
 
@@ -32,6 +33,7 @@ export class ChatComponent implements OnInit {
             });
             generalChannel.on('messageAdded', message => {
               console.log('bk message', message.body);
+              _this.messageList.push(message.body);
             });
           });
         });
