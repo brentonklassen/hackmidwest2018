@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
+import { HttpModule } from '../../node_modules/@angular/http';
 
 
 @NgModule({
@@ -12,9 +13,10 @@ import { ChatComponent } from './chat/chat.component';
     ChatComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [HttpModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
