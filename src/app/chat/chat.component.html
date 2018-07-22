@@ -1,3 +1,6 @@
+<div class="header-wrapper">
+  <span>Chat Name</span>
+</div>
 <div class="container message-wrapper">
   <div *ngFor="let message of messageList" class="row">
     <div [class]="'col ' + (message.author === username ? 'us' : 'them')">
