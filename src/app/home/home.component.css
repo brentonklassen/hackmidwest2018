@@ -1,0 +1,20 @@
+button {
+    border-radius: 10px;
+    border: 0;
+    color: white;
+    padding: 8px 16px;
+}
+
+input {
+    border-radius: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.start-chatting {
+    background-color: rgb(0,159,193);
+}
+
+.create-tribe {
+    background-color: rgb(243,122,9);
+}
