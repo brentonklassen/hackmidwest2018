@@ -23,6 +23,7 @@ export class CreateTribeComponent implements OnInit {
   venues = [];
   lat;
   lon;
+  selectedLocation;
   trustedUrl: SafeResourceUrl;
 
   constructor(private apiService: ApiService, private sanitizer: DomSanitizer, private tokenService: TokenService, private router: Router) {
@@ -53,6 +54,8 @@ export class CreateTribeComponent implements OnInit {
 
   createChannel() {
     const _this = this;
+    console.log(_this.selectedLocation);
+
     _this.tokenService.getTokenInfo().subscribe(
       (response) => {
         const token = response.token;
@@ -68,7 +71,7 @@ export class CreateTribeComponent implements OnInit {
           channel.updateAttributes({
             question : _this.tribeQuestion,
             answer : _this.tribeAnswer,
-            location : _this.venues[0]
+            location : _this.selectedLocation
           }).then(
             function(channelUpdated) {
                 console.log(channelUpdated);

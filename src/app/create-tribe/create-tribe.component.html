@@ -5,19 +5,19 @@
 
   <div class="form-group">
       <input type="text" placeholder="Tribe name?"[(ngModel)]="tribeName" >
-      <br/>
+     <!--  <br/>
       <h4 class="text-center">How long is your event?</h4>
-      <br/>
-      <div class="btn-group" role="group" aria-label="Basic example">
+      <br/> -->
+   <!--    <div class="btn-group" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-secondary">2 hours</button>
           <button type="button" class="btn btn-secondary">4 hours</button>
           <button type="button" class="btn btn-secondary">6 hours</button>
-        </div>
-
+        </div> -->
+        <br/> <br/>
     <p>Security :</p>
     <input type="text" placeholder="Enter Question...something your tribe might know" size="133" [(ngModel)]="tribeQuestion">
     <br/>
-    <input type="text" placeholder="Enter Answer" size="133" [(ngModel)]="tribeAnswer"> <br/>
+    <input type="text" placeholder="Enter Answer" size="133" [(ngModel)]="tribeAnswer"> <br/> <br/>
     <button (click)="showPlaces()" class="btn btn-info">Next Step</button>
 
 
@@ -32,7 +32,9 @@
   [src]="trustedUrl" allowfullscreen>
 </iframe>
 
-  <div class="row" *ngFor="let venue of venues">{{venue}}</div>
+  <div class="radio" *ngFor="let venue of venues">
+      <label><input type="radio" [value]="venue"   name="optradio" [(ngModel)]="selectedLocation">     {{venue}} </label>
+    </div>
   <button (click)="createChannel()">Create Channel</button>
 
 </div>
