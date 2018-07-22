@@ -1,15 +1,20 @@
-<div class="header-wrapper">
-  <span>Chat Name</span>
+<div *ngIf="!finishedLoading" class="text-center">
+  <img src="../../assets/BirdFly15.gif">
 </div>
-<div class="container message-wrapper">
-  <div *ngFor="let message of messageList" class="row">
-    <div [class]="'col ' + (message.author === username ? 'us' : 'them')">
-      <div [class]="'message ' + (message.author === username ? 'us' : 'them')">{{message.body}}</div>
-      <div class="author">{{message.author}}</div>
+<div *ngIf="finishedLoading">
+  <div class="header-wrapper">
+    <span>Chat Name</span>
+  </div>
+  <div class="container message-wrapper">
+    <div *ngFor="let message of messageList" class="row">
+      <div [class]="'col ' + (message.author === username ? 'us' : 'them')">
+        <div [class]="'message ' + (message.author === username ? 'us' : 'them')">{{message.body}}</div>
+        <div class="author">{{message.author}}</div>
+      </div>
     </div>
   </div>
-</div>
-<div class="composer-wrapper">
-  <input #composer (keyup.enter)="sendMessage()" placeholder="Type a message and hit enter..." [(ngModel)]="composedMessage">
-  <button (click)="sendMessage()">Send</button>
+  <div class="composer-wrapper">
+    <input #composer (keyup.enter)="sendMessage()" placeholder="Type a message and hit enter..." [(ngModel)]="composedMessage">
+    <button (click)="sendMessage()">Send</button>
+  </div>
 </div>
