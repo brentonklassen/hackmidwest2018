@@ -24,11 +24,13 @@ export class ChatComponent implements OnInit {
 
 
   constructor(private apiService: ApiService, private tokenService: TokenService) {
+    const params = (new URL(document.location.href)).searchParams;
 
     const _this = this;
 
-    const channelName = 'general';
+    const channelName = (params.get('channelName'));
 
+    console.log(channelName);
 
     _this.tokenService.getTokenInfo().subscribe(
       (response) => {

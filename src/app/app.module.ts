@@ -9,11 +9,13 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { HttpModule } from '../../node_modules/@angular/http';
 import { CreateTribeComponent } from './create-tribe/create-tribe.component';
+import { ChannelCreatedComponent } from './channel-created/channel-created.component';
 
 const appRoutes: Routes = [
   { path: 'start-tribe', component: CreateTribeComponent },
   { path: 'chat', component: ChatComponent },
-  { path: '', component: HomeComponent}
+  { path: '', component: HomeComponent},
+  { path: 'channel-created', component: ChannelCreatedComponent}
 
   /* { path: 'crisis-center', component: CrisisListComponent } */
 
@@ -24,7 +26,8 @@ const appRoutes: Routes = [
     AppComponent,
     ChatComponent,
     CreateTribeComponent,
-    HomeComponent
+    HomeComponent,
+    ChannelCreatedComponent
   ],
   imports: [
     BrowserModule,

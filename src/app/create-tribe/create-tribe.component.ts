@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import {DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TokenService } from '../token.service';
+import {Router} from "@angular/router";
+
 
 declare global {
   interface Window { Twilio: any; }
@@ -23,7 +25,7 @@ export class CreateTribeComponent implements OnInit {
   lon;
   trustedUrl: SafeResourceUrl;
 
-  constructor(private apiService: ApiService, private sanitizer: DomSanitizer, private tokenService: TokenService) {
+  constructor(private apiService: ApiService, private sanitizer: DomSanitizer, private tokenService: TokenService, private router: Router) {
     const _this = this;
     navigator.geolocation.getCurrentPosition((position) => {
       const lat = position.coords.latitude;
@@ -69,6 +71,8 @@ export class CreateTribeComponent implements OnInit {
           }).then(
             function(channelUpdated) {
                 console.log(channelUpdated);
+                _this.router.navigate(['chat'], { queryParams: { channelName: channelUpdated.state.uniqueName } });
+
             }
           );
         });
