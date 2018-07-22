@@ -20,18 +20,18 @@ export class HomeComponent implements OnInit {
   uniqueName;
 
   constructor(private apiService: ApiService, private router: Router) {
-    const _this = this;
+    const ___this = this;
     navigator.geolocation.getCurrentPosition((position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
       const url = `http://localhost:3000/foursquare/currentlocation?lat=${lat}&long=${lon}`
       apiService.getApiResponse(url).subscribe(response => {
-        _this.venueName = response.response.venues[0].name;
-        console.log(_this.venueName);
+        ___this.venueName = response.response.venues[0].name;
+        console.log(___this.venueName);
         const headerDict = {
           'Authorization': 'Basic U0tkNTM1ZTZjNTBiYTJmZWEyNTJlNTQwNTE1MmI4YTYxMjo4NEI4RzJOMjM3NGRJUzlGdTNaVzVVMGFiamVDSEhPYQ=='
         };
-      _this.headers = new Headers(headerDict);
+        ___this.headers = new Headers(headerDict);
 
       apiService.getApiResponse('https://chat.twilio.com/v2/Services/ISd8248562eba148a1b7033719df90b109/Channels', this.headers).subscribe(
         function (response) {
@@ -42,13 +42,13 @@ export class HomeComponent implements OnInit {
 
               if(((JSON.parse(channel.attributes)).location) !== undefined)
               {
-                console.log(_this.venueName);
+                console.log(___this.venueName);
 
-                if(((JSON.parse(channel.attributes)).location) === _this.venueName)
+                if(((JSON.parse(channel.attributes)).location) === ___this.venueName)
                 {
-                  _this.tribeSecretQuestion = ((JSON.parse(channel.attributes)).question);
-                  _this.tribeSecretAnswer = ((JSON.parse(channel.attributes)).answer);
-                  _this.uniqueName = channel.unique_name;
+                  ___this.tribeSecretQuestion = ((JSON.parse(channel.attributes)).question);
+                  ___this.tribeSecretAnswer = ((JSON.parse(channel.attributes)).answer);
+                  ___this.uniqueName = channel.unique_name;
                   console.log(((JSON.parse(channel.attributes)).location));
 
                 }
@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
           // tslint:disable-next-line:no-eval
         }
       );
-        _this.finishedLoading = true;
+      ___this.finishedLoading = true;
       });
     });
 
@@ -81,10 +81,10 @@ export class HomeComponent implements OnInit {
   }
 
   verifyAnswer() {
-    const _this = this;
-    if (_this.userAnswer === _this.tribeSecretAnswer) {
+    const ___this = this;
+    if (___this.userAnswer === ___this.tribeSecretAnswer) {
 console.log('Success!');
-_this.router.navigate(['chat'], { queryParams: { channelName: _this.uniqueName } });
+___this.router.navigate(['chat'], { queryParams: { channelName: ___this.uniqueName } });
 
 
     }

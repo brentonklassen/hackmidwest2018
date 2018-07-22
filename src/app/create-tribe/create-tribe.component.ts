@@ -27,7 +27,7 @@ export class CreateTribeComponent implements OnInit {
   trustedUrl: SafeResourceUrl;
 
   constructor(private apiService: ApiService, private sanitizer: DomSanitizer, private tokenService: TokenService, private router: Router) {
-    const _this = this;
+    const ___this = this;
     navigator.geolocation.getCurrentPosition((position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
@@ -37,9 +37,9 @@ export class CreateTribeComponent implements OnInit {
 
       const url = `http://localhost:3000/foursquare/currentlocation?lat=${lat}&long=${lon}`
       apiService.getApiResponse(url).subscribe(response => {
-        _this.venues = response.response.venues.map(venue => venue.name);
-        _this.venues = _this.venues.slice(0, 4);
-        console.log(_this.venues);
+        ___this.venues = response.response.venues.map(venue => venue.name);
+        ___this.venues = ___this.venues.slice(0, 4);
+        console.log(___this.venues);
 
       });
     });
@@ -53,29 +53,29 @@ export class CreateTribeComponent implements OnInit {
   }
 
   createChannel() {
-    const _this = this;
-    console.log(_this.selectedLocation);
+    const ___this = this;
+    console.log(___this.selectedLocation);
 
-    _this.tokenService.getTokenInfo().subscribe(
+    ___this.tokenService.getTokenInfo().subscribe(
       (response) => {
         const token = response.token;
-      _this.tokenService.token = response.token;
-      _this.tokenService.identity = response.identity;
+        ___this.tokenService.token = response.token;
+        ___this.tokenService.identity = response.identity;
       window.Twilio.Chat.Client.create(token).then(client => {
         client.createChannel({
-          uniqueName: _this.tribeName,
+          uniqueName: ___this.tribeName,
           friendlyName: 'Non General Chat Channel'
         }).then( function(channel) {
           console.log('Created new channel:');
           console.log(channel);
           channel.updateAttributes({
-            question : _this.tribeQuestion,
-            answer : _this.tribeAnswer,
-            location : _this.selectedLocation
+            question : ___this.tribeQuestion,
+            answer : ___this.tribeAnswer,
+            location : ___this.selectedLocation
           }).then(
             function(channelUpdated) {
                 console.log(channelUpdated);
-                _this.router.navigate(['chat'], { queryParams: { channelName: channelUpdated.state.uniqueName } });
+                ___this.router.navigate(['chat'], { queryParams: { channelName: channelUpdated.state.uniqueName } });
 
             }
           );
