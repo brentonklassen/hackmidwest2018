@@ -1,4 +1,4 @@
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
@@ -8,8 +8,8 @@ export class ApiService {
 
   constructor(private http: Http) { }
 
-  getApiResponse(url: string) {
-  return this.http.get(url).map((response: Response) =>  response.json());
+  getApiResponse(url: string, headers?: Headers) {
+  return this.http.get(url, {headers}).map((response: Response) =>  response.json());
   }
 
 }

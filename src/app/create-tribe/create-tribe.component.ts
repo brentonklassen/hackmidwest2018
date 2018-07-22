@@ -67,7 +67,8 @@ export class CreateTribeComponent implements OnInit {
           console.log(channel);
           channel.updateAttributes({
             question : _this.tribeQuestion,
-            answer : _this.tribeAnswer
+            answer : _this.tribeAnswer,
+            location : _this.venues[0]
           }).then(
             function(channelUpdated) {
                 console.log(channelUpdated);
