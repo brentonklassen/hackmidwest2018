@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
   messageList = [];
   composedMessage: string;
   username: string;
+  finishedLoading: boolean = false;
 
 
 
@@ -39,8 +40,10 @@ export class ChatComponent implements OnInit {
         client.getSubscribedChannels().then(channels => {
           client.getChannelByUniqueName(channelName).then(channel => {
             _this.channel = channel;
-            _this.joinChannel();
-            _this.listenForNewMessages();
+            _this.joinChannel().then(() => {
+              _this.listenForNewMessages();
+              _this.finishedLoading = true;
+            });
           });
         });
       });
@@ -53,7 +56,7 @@ export class ChatComponent implements OnInit {
   }
 
   joinChannel() {
-    this.channel.join().then(joined => {
+    return this.channel.join().then(joined => {
       console.log('joined!', joined);
     }).catch(err => {
       console.warn('didn\'t join because', err);

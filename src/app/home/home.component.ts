@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from './../api.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  venueName: string = '...';
+  finishedLoading: boolean = false;
+
+  constructor(private apiService: ApiService) {
+    const _this = this;
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const url = `http://localhost:3000/foursquare/currentlocation?lat=${lat}&long=${lon}`
+      apiService.getApiResponse(url).subscribe(response => {
+        _this.venueName = response.response.venues[0].name;
+        _this.finishedLoading = true;
+      })
+    });
+  }
 
   ngOnInit() {
   }

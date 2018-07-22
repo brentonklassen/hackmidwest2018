@@ -1,4 +1,21 @@
-<p>Nomad</p>
-<input type="text" placeholder="Enter Password">
-<button>Start Chatting</button>
-<button routerLink="/start-tribe">Create a Tribe</button>
+<div class="container">
+    <div class="row">
+        <div *ngIf="!finishedLoading" class="col text-center">
+            <img src="../../assets/BirdFly15.gif">
+        </div>
+        <div *ngIf="finishedLoading" class="col text-center">
+            <img src="../../assets/SmokingTeepee.gif" width="200px">
+            <h1>Nomad</h1>
+            <p>Always be in contact with your tribe.</p>
+            <hr>
+            <p>Is this your tribe?</p>
+            <h2>{{venueName}}</h2>
+            <span>If so,</span>
+            <input type="text" placeholder="enter the password">
+            <span>and</span>
+            <button class="start-chatting" routerLink="/chat">start chatting</button>
+            <span>or</span>
+            <button class="create-tribe" routerLink="/start-tribe">create a tribe</button>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,17 @@
+.header-wrapper {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgb(243,122,9);
+    color: white;
+    text-align: center;
+    padding: 12px;
+    z-index: 1;
+    font-size: 16px;
+}
+
 .message-wrapper {
+    margin-top: 60px;
     margin-bottom: 60px;
 }
 
