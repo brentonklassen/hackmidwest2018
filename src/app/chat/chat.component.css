@@ -1,6 +1,26 @@
-.top-bottom-buffer {
+.message-wrapper {
+    margin-bottom: 60px;
+}
+
+.col.us {
+    text-align: end;
+}
+
+.message {
     margin-top: 10px;
     margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+    display: inline-block;
+}
+
+.message.us {
+    background-color: rgb(0,159,193);
+}
+
+.message.them {
+    background-color: rgb(243,122,9);
 }
 
 .composer-wrapper {
