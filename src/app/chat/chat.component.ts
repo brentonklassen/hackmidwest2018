@@ -16,18 +16,19 @@ export class ChatComponent implements OnInit {
 
   channel;
   messageList = [];
-  composedMessage = '';
-  username = 'brenton'
+  composedMessage: string;
+  username: string;
 
   constructor(private http: Http, private apiService: ApiService) {
 
     const _this = this;
 
-    const url = `http://localhost:3000/token/${_this.username}`;
+    const url = `http://localhost:3000/token`;
     const channelName = 'general';
 
-    apiService.getApiResponse(url).subscribe( (response) => {
+    apiService.getApiResponse(url).subscribe((response) => {
       const token = response.token;
+      _this.username = response.identity;
       window.Twilio.Chat.Client.create(token).then(client => {
         client.getSubscribedChannels().then(channels => {
           client.getChannelByUniqueName(channelName).then(channel => {

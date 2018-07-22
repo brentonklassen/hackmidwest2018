@@ -2,6 +2,7 @@
   <div *ngFor="let message of messageList" class="row">
     <div [class]="'col ' + (message.author === username ? 'us' : 'them')">
       <div [class]="'message ' + (message.author === username ? 'us' : 'them')">{{message.body}}</div>
+      <div class="author">{{message.author}}</div>
     </div>
   </div>
 </div>
