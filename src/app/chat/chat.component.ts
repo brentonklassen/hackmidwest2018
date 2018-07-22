@@ -16,6 +16,7 @@ declare global {
 export class ChatComponent implements OnInit {
 
   channel;
+  channelName;
   messageList = [];
   composedMessage: string;
   username: string;
@@ -28,9 +29,9 @@ export class ChatComponent implements OnInit {
 
     const _this = this;
 
-    const channelName = (params.get('channelName'));
+    _this.channelName = (params.get('channelName'));
 
-    console.log(channelName);
+    console.log(_this.channelName);
 
     _this.tokenService.getTokenInfo().subscribe(
       (response) => {
@@ -40,7 +41,7 @@ export class ChatComponent implements OnInit {
       _this.tokenService.identity = response.identity;
       window.Twilio.Chat.Client.create(token).then(client => {
         client.getSubscribedChannels().then(channels => {
-          client.getChannelByUniqueName(channelName).then(channel => {
+          client.getChannelByUniqueName(_this.channelName).then(channel => {
             _this.channel = channel;
             _this.joinChannel().then(() => {
               _this.listenForNewMessages();

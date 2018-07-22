@@ -3,7 +3,7 @@
 </div>
 <div *ngIf="finishedLoading">
   <div class="header-wrapper">
-    <span>iWerx Chat</span>
+    <span>{{channelName}}</span>
   </div>
   <div class="container message-wrapper">
     <div *ngFor="let message of messageList" class="row">
