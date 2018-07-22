@@ -10,7 +10,7 @@ declare global {
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],
-  providers: [ApiService]
+  providers: []
 })
 export class ChatComponent implements OnInit {
 

@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { HttpModule } from '../../node_modules/@angular/http';
 import { CreateTribeComponent } from './create-tribe/create-tribe.component';
-import { Routes } from '@angular/router';
 
 const appRoutes: Routes = [
   { path: 'start-tribe', component: CreateTribeComponent },
