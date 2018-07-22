@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { HttpModule } from '../../node_modules/@angular/http';
+import { CreateTribeComponent } from './create-tribe/create-tribe.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
+    CreateTribeComponent
   ],
   imports: [
     BrowserModule,
