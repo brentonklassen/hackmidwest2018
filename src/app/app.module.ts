@@ -1,3 +1,4 @@
+import { ApiService } from './api.service';
 import { HomeComponent } from './home/home.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -8,7 +9,6 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { HttpModule } from '../../node_modules/@angular/http';
 import { CreateTribeComponent } from './create-tribe/create-tribe.component';
-import { Routes } from '@angular/router';
 
 const appRoutes: Routes = [
   { path: 'start-tribe', component: CreateTribeComponent },
@@ -32,10 +32,10 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- debugging purposes only
     )
   ],
-  providers: [HttpModule],
+  providers: [HttpModule, ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

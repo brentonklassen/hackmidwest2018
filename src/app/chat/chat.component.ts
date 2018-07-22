@@ -1,3 +1,4 @@
+import { TokenService } from './../token.service';
 import { ApiService } from './../api.service';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
@@ -10,7 +11,7 @@ declare global {
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],
-  providers: [ApiService]
+  providers: []
 })
 export class ChatComponent implements OnInit {
 
@@ -19,16 +20,21 @@ export class ChatComponent implements OnInit {
   composedMessage: string;
   username: string;
 
-  constructor(private http: Http, private apiService: ApiService) {
+
+
+  constructor(private apiService: ApiService, private tokenService: TokenService) {
 
     const _this = this;
 
-    const url = `http://localhost:3000/token`;
     const channelName = 'general';
 
-    apiService.getApiResponse(url).subscribe((response) => {
-      const token = response.token;
+
+    _this.tokenService.getTokenInfo().subscribe(
+      (response) => {
+        const token = response.token;
       _this.username = response.identity;
+      _this.tokenService.token = response.token;
+      _this.tokenService.identity = response.identity;
       window.Twilio.Chat.Client.create(token).then(client => {
         client.getSubscribedChannels().then(channels => {
           client.getChannelByUniqueName(channelName).then(channel => {
@@ -38,7 +44,12 @@ export class ChatComponent implements OnInit {
           });
         });
       });
-    });
+      }
+    );
+
+
+
+
   }
 
   joinChannel() {
