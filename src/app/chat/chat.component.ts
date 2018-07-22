@@ -17,12 +17,13 @@ export class ChatComponent implements OnInit {
   channel;
   messageList = [];
   composedMessage = '';
+  username = 'brenton'
 
   constructor(private http: Http, private apiService: ApiService) {
 
     const _this = this;
 
-    const url = 'http://localhost:3000/token/brenton';
+    const url = `http://localhost:3000/token/${_this.username}`;
     const channelName = 'general';
 
     apiService.getApiResponse(url).subscribe( (response) => {
@@ -50,8 +51,7 @@ export class ChatComponent implements OnInit {
   listenForNewMessages() {
     const _this = this;
     _this.channel.on('messageAdded', message => {
-      console.log('bk message', message.body);
-      _this.messageList.push(message.body);
+      _this.messageList.push(message);
       _this.scrollMessagesUp();
     });
   }

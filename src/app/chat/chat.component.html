@@ -1,7 +1,7 @@
 <div class="container message-wrapper">
   <div *ngFor="let message of messageList" class="row">
-    <div class="col">
-      <div class="btn btn-warning top-bottom-buffer">{{message}}</div>
+    <div [class]="'col ' + (message.author === username ? 'us' : 'them')">
+      <div [class]="'message ' + (message.author === username ? 'us' : 'them')">{{message.body}}</div>
     </div>
   </div>
 </div>
