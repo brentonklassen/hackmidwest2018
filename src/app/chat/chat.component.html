@@ -1,4 +1,11 @@
-<ul>
-  <li *ngFor="let message of messageList">{{message}}</li>
-</ul>
-<input #composer (keyup.enter)="sendMessage(composer.value)" placeholder="Type a message and hit enter..." size="100">
+<div class="container">
+  <div *ngFor="let message of messageList" class="row">
+    <div class="col">
+      <div class="btn btn-warning top-bottom-buffer">{{message}}</div>
+    </div>
+  </div>
+</div>
+<div class="composer-wrapper">
+  <input #composer (keyup.enter)="sendMessage()" placeholder="Type a message and hit enter..." [(ngModel)]="composedMessage">
+  <button (click)="sendMessage()">Send</button>
+</div>

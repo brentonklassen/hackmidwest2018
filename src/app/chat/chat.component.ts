@@ -16,12 +16,13 @@ export class ChatComponent implements OnInit {
 
   channel;
   messageList = [];
+  composedMessage = '';
 
   constructor(private http: Http, private apiService: ApiService) {
 
     const _this = this;
 
-    const url = 'http://localhost:3000/token/parth?device=browser';
+    const url = 'http://localhost:3000/token/brenton';
 
     apiService.getApiResponse(url).subscribe( (response) => {
       const token = response.token;
@@ -48,9 +49,11 @@ export class ChatComponent implements OnInit {
 
   }
 
-  sendMessage(message :string) {
+  sendMessage() {
     const _this = this;
-    _this.channel.sendMessage(message);
+    _this.channel.sendMessage(_this.composedMessage);
+    _this.composedMessage = '';
+    window.scrollTo(0,document.body.scrollHeight);
   }
 
   ngOnInit() {

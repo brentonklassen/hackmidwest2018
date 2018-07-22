@@ -1,0 +1,23 @@
+.top-bottom-buffer {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.composer-wrapper {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #ccc;
+}
+
+.composer-wrapper input {
+    border: 0;
+    width: 90%;
+    padding: 12px;
+}
+
+.composer-wrapper button {
+    border: 0;
+    width: 9%;
+    padding: 12px;
+}
