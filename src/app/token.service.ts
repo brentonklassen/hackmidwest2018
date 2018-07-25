@@ -15,7 +15,7 @@ export class TokenService {
 
    getTokenInfo(): Observable<any> {
      const _this = this;
-     const url = `http://localhost:3000/token`;
+     const url = `https://safe-garden-46528.herokuapp.com//token`;
 
      if (_this.token === undefined) {
       return this.apiService.getApiResponse(url);

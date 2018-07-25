@@ -35,7 +35,7 @@ export class CreateTribeComponent implements OnInit {
       this.trustedUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/view?key=AIzaSyAd6voAjl9w07t1Oi0cGpqFuSo0SCd7lGw&center=' + lat + ',' + lon + '&zoom=18');
       console.log(this.trustedUrl);
 
-      const url = `http://localhost:3000/foursquare/currentlocation?lat=${lat}&long=${lon}`
+      const url = `https://safe-garden-46528.herokuapp.com//foursquare/currentlocation?lat=${lat}&long=${lon}`
       apiService.getApiResponse(url).subscribe(response => {
         ___this.venues = response.response.venues.map(venue => venue.name);
         ___this.venues = ___this.venues.slice(0, 4);

@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
     navigator.geolocation.getCurrentPosition((position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-      const url = `http://localhost:3000/foursquare/currentlocation?lat=${lat}&long=${lon}`
+      const url = `https://safe-garden-46528.herokuapp.com//foursquare/currentlocation?lat=${lat}&long=${lon}`
       apiService.getApiResponse(url).subscribe(response => {
         ___this.venueName = response.response.venues[0].name;
         console.log(___this.venueName);
