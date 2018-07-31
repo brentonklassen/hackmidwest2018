@@ -10,9 +10,9 @@
             <hr>
             <p>Is this your tribe?</p>
             <h2>{{uniqueName}} @ {{venueName}}</h2>
-            <span>Prove you're here...</span>
+            <p>If so, prove you're here...</p>
             <p>{{tribeSecretQuestion}}</p>
-            <input type="text" placeholder="enter the password" (keyup.enter)="verifyAnswer()" [(ngModel)]="userAnswer" autofocus>
+            <input type="text" placeholder="Enter the answer" (keyup.enter)="verifyAnswer()" [(ngModel)]="userAnswer" autofocus>
             <span>and</span>
             <button class="start-chatting" (click)="verifyAnswer()" >start chatting</button>
             <span>or</span>
