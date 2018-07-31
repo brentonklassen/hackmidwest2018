@@ -67,12 +67,12 @@ export class HomeComponent implements OnInit {
               break;
             }
           }
+          ___this.finishedLoading = true;
+          if (!___this.venueName) {
+            console.warn('no channel available here');
+          }    
         });
-        ___this.finishedLoading = true;
       });
-      if (!___this.venueName) {
-        console.warn('no channel available here');
-      }
     });
   }
 

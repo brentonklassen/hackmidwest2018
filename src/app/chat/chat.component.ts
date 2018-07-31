@@ -33,9 +33,8 @@ export class ChatComponent implements OnInit {
 
     console.log(_this.channelName);
 
-    _this.tokenService.getTokenInfo().subscribe(
-      (response) => {
-        const token = response.token;
+    _this.tokenService.getTokenInfo().subscribe((response) => {
+      const token = response.token;
       _this.username = response.identity;
       _this.tokenService.token = response.token;
       _this.tokenService.identity = response.identity;
@@ -52,10 +51,6 @@ export class ChatComponent implements OnInit {
       });
       }
     );
-
-
-
-
   }
 
   joinChannel() {
