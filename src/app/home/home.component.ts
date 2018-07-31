@@ -20,9 +20,9 @@ export class HomeComponent implements OnInit {
   uniqueName;
 
   constructor(private apiService: ApiService, private router: Router) {
-    const ___this = this;
     console.log('getting location...');
     navigator.geolocation.getCurrentPosition((position) => {
+      console.log('got location!', location);
       if (!position) {
         console.warn('we need your location');
         return;
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
         const headerDict = {
           'Authorization': 'Basic U0tkNTM1ZTZjNTBiYTJmZWEyNTJlNTQwNTE1MmI4YTYxMjo4NEI4RzJOMjM3NGRJUzlGdTNaVzVVMGFiamVDSEhPYQ=='
         };
-        ___this.headers = new Headers(headerDict);
+        this.headers = new Headers(headerDict);
 
         apiService.getApiResponse('https://chat.twilio.com/v2/Services/ISd8248562eba148a1b7033719df90b109/Channels', this.headers).subscribe((response) => {
 
@@ -55,20 +55,20 @@ export class HomeComponent implements OnInit {
               let channelLocation = channelAttributes.location;
               console.log('checking this channel location', channelLocation, 'against this venu', venue.name);
               if (channelLocation === venue.name) {
-                ___this.venueName = venue.name;
-                ___this.tribeSecretQuestion = channelAttributes.question;
-                ___this.tribeSecretAnswer = channelAttributes.answer;
-                ___this.uniqueName = channel.unique_name;
+                this.venueName = venue.name;
+                this.tribeSecretQuestion = channelAttributes.question;
+                this.tribeSecretAnswer = channelAttributes.answer;
+                this.uniqueName = channel.unique_name;
                 console.log('found matching location:', channelAttributes.location);
                 break;
               }
             }
-            if (___this.venueName) {
+            if (this.venueName) {
               break;
             }
           }
-          ___this.finishedLoading = true;
-          if (!___this.venueName) {
+          this.finishedLoading = true;
+          if (!this.venueName) {
             console.warn('no channel available here');
           }    
         });
@@ -80,10 +80,9 @@ export class HomeComponent implements OnInit {
   }
 
   verifyAnswer() {
-    const ___this = this;
-    if (___this.userAnswer === ___this.tribeSecretAnswer) {
+    if (this.userAnswer === this.tribeSecretAnswer) {
       console.log('Success!');
-      ___this.router.navigate(['chat'], { queryParams: { channelName: ___this.uniqueName } });
+      this.router.navigate(['chat'], { queryParams: { channelName: this.uniqueName } });
     }
     else {
       console.warn('wrong answwer');
