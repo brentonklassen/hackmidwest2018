@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="composer-wrapper">
-    <input #composer (keyup.enter)="sendMessage()" placeholder="Type a message and hit enter..." [(ngModel)]="composedMessage">
+    <input #composer (keyup.enter)="sendMessage()" placeholder="Type a message and hit enter..." [(ngModel)]="composedMessage" autofocus>
     <button (click)="sendMessage()">Send</button>
   </div>
 </div>
