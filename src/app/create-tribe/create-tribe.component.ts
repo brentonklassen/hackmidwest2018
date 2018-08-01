@@ -59,17 +59,15 @@ export class CreateTribeComponent implements OnInit {
       window.Twilio.Chat.Client.create(token).then(client => {
         client.createChannel({
           uniqueName: this.tribeName,
-          friendlyName: 'Non General Chat Channel'
-        }).then( function(channel) {
-          console.log('Created new channel', channel);
-          channel.updateAttributes({
+          friendlyName: this.tribeName + ' @ ' + this.selectedLocation,
+          attributes: {
             question : this.tribeQuestion,
             answer : this.tribeAnswer,
             location : this.selectedLocation
-          }).then((channelUpdated) => {
-            console.log('updated', channelUpdated);
-            this.router.navigate(['chat'], { queryParams: { channelName: channelUpdated.state.uniqueName } });
-          });
+          }
+        }).then((channelUpdated) => {
+          console.log('updated', channelUpdated);
+          this.router.navigate(['chat'], { queryParams: { channelName: channelUpdated.state.uniqueName } });
         });
       });
     });

@@ -11,16 +11,22 @@
             <h1>Nomad</h1>
             <p>Always be in contact with your tribe.</p>
             <hr>
-            <p>Is this your tribe?</p>
-            <h2>{{uniqueName}} @ {{venueName}}</h2>
-            <p>If so, prove you're here...</p>
-            <p>{{tribeSecretQuestion}}</p>
-            <input type="text" placeholder="Enter the answer" (keyup.enter)="verifyAnswer()" [(ngModel)]="userAnswer" autofocus>
-            <span>and</span>
-            <button class="start-chatting" (click)="verifyAnswer()" >start chatting</button>
-            <span>or</span>
-            <button class="create-tribe" routerLink="/start-tribe">create a tribe</button>
-            <div *ngIf="wrongAnswer" class="alert alert-danger wrong-answer-alert" role="alert">Wrong answer!</div>
+            <div *ngIf="tribeHere">
+                <p>Is this your tribe?</p>
+                <h2>{{tribeName}} @ {{venueName}}</h2>
+                <p>If so, prove you're here...</p>
+                <p>{{tribeSecretQuestion}}</p>
+                <input type="text" placeholder="Enter the answer" (keyup.enter)="verifyAnswer()" [(ngModel)]="userAnswer" autofocus>
+                <span>and</span>
+                <button class="start-chatting" (click)="verifyAnswer()" >start chatting</button>
+                <span>or</span>
+                <button class="create-tribe" routerLink="/start-tribe">create a tribe</button>
+                <div *ngIf="wrongAnswer" class="alert alert-danger wrong-answer-alert" role="alert">Wrong answer!</div>
+            </div>
+            <div *ngIf="!tribeHere">
+                <p>No tribe here yet!</p>
+                <button class="create-tribe" routerLink="/start-tribe">create a tribe</button>
+            </div>
         </div>
     </div>
 </div>

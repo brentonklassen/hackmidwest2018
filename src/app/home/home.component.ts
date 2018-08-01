@@ -11,15 +11,16 @@ import {Router} from "@angular/router";
 })
 export class HomeComponent implements OnInit {
 
-  venueName: string = '...';
+  venueName: string = '';
   finishedLoading: boolean = false;
   wrongAnswer: boolean = false;
   gotLocation: boolean = false;
+  tribeHere: boolean = false;
   headers: Headers;
   tribeSecretQuestion = '?';
   tribeSecretAnswer = '';
   userAnswer = '';
-  uniqueName;
+  tribeName;
 
   constructor(private apiService: ApiService, private router: Router) {
     console.log('getting location...');
@@ -62,7 +63,7 @@ export class HomeComponent implements OnInit {
                 this.venueName = venue.name;
                 this.tribeSecretQuestion = channelAttributes.question;
                 this.tribeSecretAnswer = channelAttributes.answer;
-                this.uniqueName = channel.unique_name;
+                this.tribeName = channel.unique_name;
                 console.log('found matching location:', channelAttributes.location);
                 break;
               }
@@ -72,9 +73,11 @@ export class HomeComponent implements OnInit {
             }
           }
           this.finishedLoading = true;
-          if (!this.venueName) {
+          if (!this.tribeName) {
             console.warn('no channel available here');
-          }    
+          } else {
+            this.tribeHere = true;
+          }
         });
       });
     }, () => {
@@ -89,7 +92,7 @@ export class HomeComponent implements OnInit {
   verifyAnswer() {
     if (this.userAnswer.toLowerCase().includes(this.tribeSecretAnswer.toLowerCase())) {
       console.log('Success!');
-      this.router.navigate(['chat'], { queryParams: { channelName: this.uniqueName } });
+      this.router.navigate(['chat'], { queryParams: { channelName: this.tribeName } });
     }
     else {
       console.warn('wrong answwer');
