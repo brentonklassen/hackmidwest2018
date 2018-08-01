@@ -18,7 +18,7 @@ export class TokenService {
      const url = `https://safe-garden-46528.herokuapp.com/token`;
 
      if (_this.token === undefined) {
-      return this.apiService.getApiResponse(url);
+      return this.apiService.get(url);
      } else {
       return new Observable((observer) => {
         observer.next(_this);

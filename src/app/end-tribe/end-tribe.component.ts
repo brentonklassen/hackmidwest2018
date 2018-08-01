@@ -27,7 +27,7 @@ export class EndTribeComponent implements OnInit {
   }
 
   getActiveChannels() {
-    this.apiService.getApiResponse('https://chat.twilio.com/v2/Services/ISd8248562eba148a1b7033719df90b109/Channels', this.headers).subscribe((response) => {
+    this.apiService.get('https://chat.twilio.com/v2/Services/ISd8248562eba148a1b7033719df90b109/Channels', this.headers).subscribe((response) => {
       console.log('channels', response.channels);
       let channels = response.channels;
       channels.map(channel => {

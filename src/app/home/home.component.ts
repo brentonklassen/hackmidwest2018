@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
       const url = `https://safe-garden-46528.herokuapp.com/foursquare/currentlocation?lat=${lat}&long=${lon}`
-      apiService.getApiResponse(url).subscribe(response => {
+      apiService.get(url).subscribe(response => {
 
         let venues = response.response.venues;
 
@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
         };
         this.headers = new Headers(headerDict);
 
-        apiService.getApiResponse('https://chat.twilio.com/v2/Services/ISd8248562eba148a1b7033719df90b109/Channels', this.headers).subscribe((response) => {
+        apiService.get('https://chat.twilio.com/v2/Services/ISd8248562eba148a1b7033719df90b109/Channels', this.headers).subscribe((response) => {
 
           for (let venue of venues) {
 

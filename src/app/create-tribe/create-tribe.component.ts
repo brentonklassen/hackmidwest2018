@@ -27,20 +27,17 @@ export class CreateTribeComponent implements OnInit {
   trustedUrl: SafeResourceUrl;
 
   constructor(private apiService: ApiService, private sanitizer: DomSanitizer, private tokenService: TokenService, private router: Router) {
-    const ___this = this;
     navigator.geolocation.getCurrentPosition((position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
       // tslint:disable-next-line:max-line-length
       this.trustedUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/view?key=AIzaSyAd6voAjl9w07t1Oi0cGpqFuSo0SCd7lGw&center=' + lat + ',' + lon + '&zoom=18');
-      console.log(this.trustedUrl);
 
       const url = `https://safe-garden-46528.herokuapp.com/foursquare/currentlocation?lat=${lat}&long=${lon}`
-      apiService.getApiResponse(url).subscribe(response => {
-        ___this.venues = response.response.venues.map(venue => venue.name);
-        ___this.venues = ___this.venues.slice(0, 4);
-        console.log(___this.venues);
-
+      apiService.get(url).subscribe(response => {
+        this.venues = response.response.venues.map(venue => venue.name);
+        this.venues = this.venues.slice(0, 4);
+        console.log('venues', this.venues);
       });
     });
   }
@@ -53,39 +50,29 @@ export class CreateTribeComponent implements OnInit {
   }
 
   createChannel() {
-    const ___this = this;
-    console.log(___this.selectedLocation);
+    console.log('selected location', this.selectedLocation);
 
-    ___this.tokenService.getTokenInfo().subscribe(
-      (response) => {
-        const token = response.token;
-        ___this.tokenService.token = response.token;
-        ___this.tokenService.identity = response.identity;
+    this.tokenService.getTokenInfo().subscribe((response) => {
+      const token = response.token;
+      this.tokenService.token = response.token;
+      this.tokenService.identity = response.identity;
       window.Twilio.Chat.Client.create(token).then(client => {
         client.createChannel({
-          uniqueName: ___this.tribeName,
+          uniqueName: this.tribeName,
           friendlyName: 'Non General Chat Channel'
         }).then( function(channel) {
-          console.log('Created new channel:');
-          console.log(channel);
+          console.log('Created new channel', channel);
           channel.updateAttributes({
-            question : ___this.tribeQuestion,
-            answer : ___this.tribeAnswer,
-            location : ___this.selectedLocation
-          }).then(
-            function(channelUpdated) {
-                console.log(channelUpdated);
-                ___this.router.navigate(['chat'], { queryParams: { channelName: channelUpdated.state.uniqueName } });
-
-            }
-          );
+            question : this.tribeQuestion,
+            answer : this.tribeAnswer,
+            location : this.selectedLocation
+          }).then((channelUpdated) => {
+            console.log('updated', channelUpdated);
+            this.router.navigate(['chat'], { queryParams: { channelName: channelUpdated.state.uniqueName } });
+          });
         });
       });
-      }
-    );
-
-
+    });
   }
-
 
 }
