@@ -1,0 +1,13 @@
+<div class="container">
+  <div *ngFor="let channel of channels" class="row">
+    <div class="col">
+      <span>{{channel.unique_name}}</span>
+    </div>
+    <div class="col">
+      <span>{{channel.location}}</span>
+    </div>
+    <div class="col">
+      <button class="btn btn-danger" [attr.title]="'End ' + channel.unique_name" (click)="endChannelBySID(channel.sid)">End tribe</button>
+    </div>
+  </div>
+</div>

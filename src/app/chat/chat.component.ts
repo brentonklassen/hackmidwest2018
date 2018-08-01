@@ -1,7 +1,5 @@
 import { TokenService } from './../token.service';
-import { ApiService } from './../api.service';
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
 
 declare global {
   interface Window { Twilio: any; }
@@ -24,33 +22,26 @@ export class ChatComponent implements OnInit {
 
 
 
-  constructor(private apiService: ApiService, private tokenService: TokenService) {
+  constructor(private tokenService: TokenService) {
     const params = (new URL(document.location.href)).searchParams;
 
-    const _this = this;
+    this.channelName = (params.get('channelName'));
 
-    _this.channelName = (params.get('channelName'));
+    console.log('joining', this.channelName);
 
-    console.log(_this.channelName);
-
-    _this.tokenService.getTokenInfo().subscribe((response) => {
+    this.tokenService.getTokenInfo().subscribe((response) => {
       const token = response.token;
-      _this.username = response.identity;
-      _this.tokenService.token = response.token;
-      _this.tokenService.identity = response.identity;
+      this.username = response.identity;
       window.Twilio.Chat.Client.create(token).then(client => {
-        client.getSubscribedChannels().then(channels => {
-          client.getChannelByUniqueName(_this.channelName).then(channel => {
-            _this.channel = channel;
-            _this.joinChannel().then(() => {
-              _this.listenForNewMessages();
-              _this.finishedLoading = true;
-            });
+        client.getChannelByUniqueName(this.channelName).then(channel => {
+          this.channel = channel;
+          this.joinChannel().then(() => {
+            this.listenForNewMessages();
+            this.finishedLoading = true;
           });
         });
       });
-      }
-    );
+    });
   }
 
   joinChannel() {
@@ -62,17 +53,15 @@ export class ChatComponent implements OnInit {
   }
 
   listenForNewMessages() {
-    const _this = this;
-    _this.channel.on('messageAdded', message => {
-      _this.messageList.push(message);
-      _this.scrollMessagesUp();
+    this.channel.on('messageAdded', message => {
+      this.messageList.push(message);
+      this.scrollMessagesUp();
     });
   }
 
   sendMessage() {
-    const _this = this;
-    _this.channel.sendMessage(_this.composedMessage);
-    _this.composedMessage = '';
+    this.channel.sendMessage(this.composedMessage);
+    this.composedMessage = '';
     this.scrollMessagesUp();
   }
 
