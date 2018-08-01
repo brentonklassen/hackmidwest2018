@@ -3,7 +3,10 @@
         <div *ngIf="!finishedLoading" class="col text-center">
             <img src="../../assets/BirdFly15.gif">
         </div>
-        <div *ngIf="finishedLoading" class="col text-center">
+        <div *ngIf="finishedLoading && !gotLocation" class="col text-center">
+            <div class="alert alert-danger no-location-alert" role="alert">We need your location!</div>
+        </div>    
+        <div *ngIf="finishedLoading && gotLocation" class="col text-center">
             <img src="../../assets/SmokingTeepee.gif" width="200px">
             <h1>Nomad</h1>
             <p>Always be in contact with your tribe.</p>

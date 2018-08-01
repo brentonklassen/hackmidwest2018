@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   venueName: string = '...';
   finishedLoading: boolean = false;
   wrongAnswer: boolean = false;
+  gotLocation: boolean = false;
   headers: Headers;
   tribeSecretQuestion = '?';
   tribeSecretAnswer = '';
@@ -25,9 +26,10 @@ export class HomeComponent implements OnInit {
     navigator.geolocation.getCurrentPosition((position) => {
       console.log('got location!', location);
       if (!position) {
-        console.warn('we need your location');
-        return;
+        console.warn('failed getting location');
+        this.finishedLoading = true;
       }
+      this.gotLocation = true;  
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
       const url = `https://safe-garden-46528.herokuapp.com/foursquare/currentlocation?lat=${lat}&long=${lon}`
@@ -74,7 +76,10 @@ export class HomeComponent implements OnInit {
           }    
         });
       });
-    });
+    }, () => {
+      console.warn('did not get location')
+      this.finishedLoading = true;
+  });
   }
 
   ngOnInit() {
