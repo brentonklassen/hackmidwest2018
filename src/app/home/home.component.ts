@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
   }
 
   verifyAnswer() {
-    if (this.userAnswer === this.tribeSecretAnswer) {
+    if (this.userAnswer.toLowerCase().includes(this.tribeSecretAnswer.toLowerCase())) {
       console.log('Success!');
       this.router.navigate(['chat'], { queryParams: { channelName: this.uniqueName } });
     }
