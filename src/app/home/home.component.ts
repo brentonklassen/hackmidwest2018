@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
       if (!position) {
         console.warn('failed getting location');
         this.finishedLoading = true;
+        return;
       }
       this.gotLocation = true;  
       const lat = position.coords.latitude;
