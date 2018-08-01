@@ -11,23 +11,27 @@ import {Router} from "@angular/router";
 })
 export class HomeComponent implements OnInit {
 
-  venueName: string = '...';
+  venueName: string = '';
   finishedLoading: boolean = false;
   wrongAnswer: boolean = false;
+  gotLocation: boolean = false;
+  tribeHere: boolean = false;
   headers: Headers;
   tribeSecretQuestion = '?';
   tribeSecretAnswer = '';
   userAnswer = '';
-  uniqueName;
+  tribeName;
 
   constructor(private apiService: ApiService, private router: Router) {
     console.log('getting location...');
     navigator.geolocation.getCurrentPosition((position) => {
       console.log('got location!', location);
       if (!position) {
-        console.warn('we need your location');
+        console.warn('failed getting location');
+        this.finishedLoading = true;
         return;
       }
+      this.gotLocation = true;  
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
       const url = `https://safe-garden-46528.herokuapp.com/foursquare/currentlocation?lat=${lat}&long=${lon}`
@@ -59,7 +63,7 @@ export class HomeComponent implements OnInit {
                 this.venueName = venue.name;
                 this.tribeSecretQuestion = channelAttributes.question;
                 this.tribeSecretAnswer = channelAttributes.answer;
-                this.uniqueName = channel.unique_name;
+                this.tribeName = channel.unique_name;
                 console.log('found matching location:', channelAttributes.location);
                 break;
               }
@@ -69,12 +73,17 @@ export class HomeComponent implements OnInit {
             }
           }
           this.finishedLoading = true;
-          if (!this.venueName) {
+          if (!this.tribeName) {
             console.warn('no channel available here');
-          }    
+          } else {
+            this.tribeHere = true;
+          }
         });
       });
-    });
+    }, () => {
+      console.warn('did not get location');
+      this.finishedLoading = true;
+  });
   }
 
   ngOnInit() {
@@ -83,7 +92,7 @@ export class HomeComponent implements OnInit {
   verifyAnswer() {
     if (this.userAnswer.toLowerCase().includes(this.tribeSecretAnswer.toLowerCase())) {
       console.log('Success!');
-      this.router.navigate(['chat'], { queryParams: { channelName: this.uniqueName } });
+      this.router.navigate(['chat'], { queryParams: { channelName: this.tribeName } });
     }
     else {
       console.warn('wrong answwer');
