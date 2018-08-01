@@ -65,9 +65,9 @@ export class CreateTribeComponent implements OnInit {
             answer : this.tribeAnswer,
             location : this.selectedLocation
           }
-        }).then((channelUpdated) => {
-          console.log('updated', channelUpdated);
-          this.router.navigate(['chat'], { queryParams: { channelName: channelUpdated.state.uniqueName } });
+        }).then((channel) => {
+          console.log('created', channel);
+          this.router.navigate(['chat'], { queryParams: { channelName: channel.state.uniqueName } });
         });
       });
     });
