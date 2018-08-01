@@ -8,8 +8,12 @@ export class ApiService {
 
   constructor(private http: Http) { }
 
-  getApiResponse(url: string, headers?: Headers) {
-  return this.http.get(url, {headers}).map((response: Response) =>  response.json());
+  get(url: string, headers?: Headers) {
+    return this.http.get(url, {headers}).map((response: Response) =>  response.json());
+  }
+
+  delete(url: string, headers?: Headers) {
+    return this.http.delete(url, {headers}).map((response: Response) =>  response.json());
   }
 
 }
