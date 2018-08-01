@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
 
   venueName: string = '...';
   finishedLoading: boolean = false;
+  wrongAnswer: boolean = false;
   headers: Headers;
   tribeSecretQuestion = '?';
   tribeSecretAnswer = '';
@@ -86,6 +87,8 @@ export class HomeComponent implements OnInit {
     }
     else {
       console.warn('wrong answwer');
+      this.wrongAnswer = true;
+      this.userAnswer = '';
     }
   }
 

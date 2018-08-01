@@ -18,3 +18,7 @@ input {
 .create-tribe {
     background-color: rgb(243,122,9);
 }
+
+.wrong-answer-alert {
+    margin-top: 30px;
+}

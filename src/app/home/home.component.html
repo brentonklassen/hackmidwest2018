@@ -17,6 +17,7 @@
             <button class="start-chatting" (click)="verifyAnswer()" >start chatting</button>
             <span>or</span>
             <button class="create-tribe" routerLink="/start-tribe">create a tribe</button>
+            <div *ngIf="wrongAnswer" class="alert alert-danger wrong-answer-alert" role="alert">Wrong answer!</div>
         </div>
     </div>
 </div>
