@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
         });
       });
     }, () => {
-      console.warn('did not get location')
+      console.warn('did not get location');
       this.finishedLoading = true;
   });
   }
